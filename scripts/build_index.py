@@ -1,6 +1,6 @@
 import os
-from ai_doc_assistant.document_loader import load_text_from_file
-from ai_doc_assistant.embedding_store import EmbeddingStore
+from ai_doc_assistant_langchain.document_loader import load_text_from_file
+from ai_doc_assistant_langchain.embedding_store import EmbeddingStore
 
 DOCUMENTS_DIR = "documents"
 VECTORSTORE_DIR = "vectorstore"

@@ -1,6 +1,6 @@
 import os
-from ai_doc_assistant.document_loader import load_text_from_file
-from ai_doc_assistant.llm_interface import ask_llm
+from ai_doc_assistant_langchain.document_loader import load_text_from_file
+from ai_doc_assistant_langchain.llm_interface import ask_llm
 
 DOCUMENTS_DIR = "documents"
 SUMMARIES_DIR = "summaries"
