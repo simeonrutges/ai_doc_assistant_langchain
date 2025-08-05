@@ -1,6 +1,6 @@
 # AI Document Assistant (met LangChain)
 
-![CI](https://github.com/simeonrutges/ai_doc_assistant/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/simeonrutges/ai_doc_assistant_langchain/actions/workflows/ci.yml/badge.svg)
 
 Dit project is een doorontwikkeling van mijn eerdere lokale documentassistent.
 In deze versie ga ik het bestaande project stap voor stap ombouwen met LangChain, om zo te oefenen met meer productiegerichte technieken zoals geavanceerde documentverwerking, RAG en integratie van AI-workflows.
@@ -44,8 +44,8 @@ Zorg dat je Python 3.11 (niet hoger dan 3.12) en [Poetry](https://python-poetry.
 Kloon de repository en installeer de afhankelijkheden:
 
 ```bash
-git clone https://github.com/simeonrutges/ai_doc_assistant
-cd ai_doc_assistant
+git clone https://github.com/simeonrutges/ai_doc_assistant_langchain
+cd ai_doc_assistant_langchain
 poetry install --with dev
 ```
 Installeer en start een lokaal taalmodel via Ollama:
