@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "ai-doc-assistant"
+name = "ai-doc-assistant_langchain"
 version = "0.1.0"
 description = ""
 authors = ["simeonrutges <s.rutges@gmail.com>"]
-packages = [{ include = "ai_doc_assistant" }]
+packages = [{ include = "ai_doc_assistant_langchain"}]
 readme = "README.md"
 
 [tool.poetry.dependencies]

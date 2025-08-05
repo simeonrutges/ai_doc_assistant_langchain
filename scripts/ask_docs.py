@@ -1,8 +1,8 @@
 import sys
 import os
-from ai_doc_assistant.document_loader import load_text_from_file
-from ai_doc_assistant.embedding_store import EmbeddingStore
-from ai_doc_assistant.llm_interface import ask_llm
+from ai_doc_assistant_langchain.document_loader import load_text_from_file
+from ai_doc_assistant_langchain.embedding_store import EmbeddingStore
+from ai_doc_assistant_langchain.llm_interface import ask_llm
 
 VECTORSTORE_DIR = "vectorstore"
 TOP_K = 3
