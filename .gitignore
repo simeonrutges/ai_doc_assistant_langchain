@@ -1,0 +1,30 @@
+# Virtuele omgeving
+.venv/
+
+# Python caches
+__pycache__/
+*.pyc
+
+# macOS rommel
+.DS_Store
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+
+# Editor-instellingen
+.vscode/
+
+# Door AI gegenereerde bestanden
+vectorstore/
+!vectorstore/.gitkeep
+summaries/
+!summaries/.gitkeep
+
+
+# FAISS en pickle bestanden expliciet uitsluiten
+*.faiss
+*.pkl
+
+# Documenten (worden lokaal gehouden, niet in Git)
+documents/
+!documents/.gitkeep
