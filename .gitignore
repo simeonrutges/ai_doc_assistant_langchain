@@ -28,3 +28,4 @@ summaries/
 # Documenten (worden lokaal gehouden, niet in Git)
 documents/
 !documents/.gitkeep
+!documents/sample.pdf
