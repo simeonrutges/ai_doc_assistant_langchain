@@ -9,6 +9,8 @@ import os
 def ingest_documents(folder: str, persist_path: str = "vectorstore") -> FAISS:
     docs = []
     for filename in os.listdir(folder):
+        if filename == ".gitkeep":
+            continue  # sla lege markerbestand over
         filepath = os.path.join(folder, filename)
         raw_text = load_text_from_file(filepath)
         docs.append(Document(page_content=raw_text, metadata={"source": filename}))

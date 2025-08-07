@@ -26,7 +26,6 @@ summaries/
 *.pkl
 
 # Documenten (worden lokaal gehouden, niet in Git)
-documents/
+# Negeer bestanden in documents/, maar niet de map zelf
+documents/*
 !documents/.gitkeep
-!documents/sample.pdf
-!documents/sample.txt
