@@ -30,4 +30,5 @@ jobs:
         run: |
           export PYTHONPATH=.
           poetry run pytest
+        continue-on-error: false
 
