@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain_ollama import OllamaLLM
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaLLM 
+from langchain_ollama import OllamaEmbeddings 
 from langchain.schema.retriever import BaseRetriever
 
 
@@ -12,7 +12,9 @@ def load_vectorstore(
     Laadt een opgeslagen FAISS vectorstore vanaf schijf.
     """
     embeddings = OllamaEmbeddings(model=model_name)
-    return FAISS.load_local(persist_path, embeddings, allow_dangerous_deserialization=True)
+    return FAISS.load_local(
+        persist_path, embeddings, allow_dangerous_deserialization=True
+    )
 
 
 def build_rag_chain(
@@ -22,8 +24,7 @@ def build_rag_chain(
     Bouwt een RetrievalQA-chain op basis van een retriever en LLM.
     """
     llm = OllamaLLM(model=model_name)
-    chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
-    return chain
+    return RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
 
 
 def ask_question(question: str, chain: RetrievalQA) -> str:

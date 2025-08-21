@@ -1,3 +1,4 @@
+import os
 from ai_doc_assistant_langchain.ingest import ingest_documents
 from ai_doc_assistant_langchain.rag_chain import (
     build_rag_chain,
@@ -5,9 +6,19 @@ from ai_doc_assistant_langchain.rag_chain import (
 )
 from unittest.mock import patch
 from langchain_core.embeddings import Embeddings
+from langchain_community.llms import Ollama
+from unittest.mock import patch
+from langchain_core.language_models.llms import LLM
 
 
-# FakeEmbeddings vervangt OllamaEmbeddings in tests
+class FakeOllama(LLM):
+    @property
+    def _llm_type(self) -> str:
+        return "fake-ollama"
+
+    def _call(self, prompt: str, stop: list[str] | None = None) -> str:
+        return "Dit is een testantwoord."
+
 class FakeEmbeddings(Embeddings):
     def __init__(self, model=None):
         self.model = model
@@ -20,21 +31,26 @@ class FakeEmbeddings(Embeddings):
 
 
 @patch("ai_doc_assistant_langchain.ingest.OllamaEmbeddings", new=FakeEmbeddings)
-def test_full_rag_pipeline():
-    # Stap 1: Index bouwen (of hergebruiken als reeds aanwezig)
-    vectorstore = ingest_documents("documents")
+@patch("ai_doc_assistant_langchain.rag_chain.OllamaLLM", new=FakeOllama)
+def test_full_rag_pipeline(tmp_path):
+    # Stap 0: Maak tijdelijk testdocument aan
+    test_file = tmp_path / "test.txt"
+    test_file.write_text("Dit is een testdocument over AI en taalmodellen.")
 
-    # Stap 2: Retriever ophalen uit vectorstore
+    # Stap 1: Index bouwen
+    vectorstore = ingest_documents(str(tmp_path))
+
+    # Stap 2: Retriever ophalen
     retriever = vectorstore.as_retriever()
 
-    # Stap 3: Chain bouwen met LLM + retriever
+    # Stap 3: Chain bouwen
     chain = build_rag_chain(retriever)
 
-    # Stap 4: Vraag stellen aan de chain
+    # Stap 4: Vraag stellen
     question = "Wat is het onderwerp van het document?"
     answer = ask_question(question, chain)
 
-    # Stap 5: Valideer antwoord
+    # Stap 5: Validatie
     assert "result" in answer
     assert isinstance(answer["result"], str)
     assert len(answer["result"].strip()) > 10
