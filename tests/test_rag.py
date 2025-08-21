@@ -6,7 +6,18 @@ from ai_doc_assistant_langchain.rag_chain import (
 )
 from unittest.mock import patch
 from langchain_core.embeddings import Embeddings
+from langchain_community.llms import Ollama
+from unittest.mock import patch
+from langchain_core.language_models.llms import LLM
 
+
+class FakeOllama(LLM):
+    @property
+    def _llm_type(self) -> str:
+        return "fake-ollama"
+
+    def _call(self, prompt: str, stop: list[str] | None = None) -> str:
+        return "Dit is een testantwoord."
 
 class FakeEmbeddings(Embeddings):
     def __init__(self, model=None):
@@ -20,6 +31,7 @@ class FakeEmbeddings(Embeddings):
 
 
 @patch("ai_doc_assistant_langchain.ingest.OllamaEmbeddings", new=FakeEmbeddings)
+@patch("ai_doc_assistant_langchain.rag_chain.OllamaLLM", new=FakeOllama)
 def test_full_rag_pipeline(tmp_path):
     # Stap 0: Maak tijdelijk testdocument aan
     test_file = tmp_path / "test.txt"
@@ -42,4 +54,3 @@ def test_full_rag_pipeline(tmp_path):
     assert "result" in answer
     assert isinstance(answer["result"], str)
     assert len(answer["result"].strip()) > 10
-
