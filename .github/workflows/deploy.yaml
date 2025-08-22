@@ -13,25 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up SSH key
+      - name: Install dependencies & update project
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PI_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          cd ~/ai_doc_assistant_langchain || git clone https://github.com/YOUR_USERNAME/ai_doc_assistant_langchain.git ~/ai_doc_assistant_langchain
+          cd ~/ai_doc_assistant_langchain
+          git pull
+          poetry install
+          echo "✅ Code pulled & dependencies installed"
 
-      - name: Add Pi to known_hosts
-        run: |
-          ssh-keyscan -H 192.168.178.57 >> ~/.ssh/known_hosts
-
-      - name: Deploy code to Raspberry Pi
-        run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no nge045@192.168.178.57 << 'EOF'
-            if [ ! -d ~/ai_doc_assistant_langchain ]; then
-              git clone https://github.com/simeonrutges/ai_doc_assistant_langchain.git ~/ai_doc_assistant_langchain
-            fi
-            cd ~/ai_doc_assistant_langchain
-            git pull
-            poetry install
-            echo "✅ Code pulled & dependencies installed"
-          EOF
 
