@@ -9,6 +9,7 @@ DOCUMENTS_DIR = "documents"
 VECTORSTORE_DIR = "vectorstore"
 SUMMARIES_DIR = "summaries"
 
+#start gradio
 def beschikbare_documenten():
     return [
         f for f in os.listdir(DOCUMENTS_DIR)
